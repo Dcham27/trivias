@@ -1,0 +1,70 @@
+{% extends '_base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+{% block metatag %}
+<meta name="title" content="{{ title }}">
+<meta name="description" content="{{ description }}">
+{% endblock metatag %}
+{% block og %}
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+{% endblock og %}
+{% block ogtwitter %}
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+<meta property="twitter:title" content="{{ title }}">
+<meta property="twitter:description" content="{{ description }}">
+{% endblock ogtwitter %}
+{% block body %}
+<main class="max-w-screen-xl mx-auto min-h-screen px-4 md:px-4 pt-6 md:pt-4">
+    {% include 'partial_nav.html' %}
+    <div
+        class="mx-auto w-full lg:w-2/3 h-56 lg:h-36 flex flex-col justify-between items-start rounded-lg border-l-4 {{ avowal.get_color_style }} py-5 px-4 my-10">
+        <p class="text-gray-800 text-sm">{{ avowal.body }}</p>
+        <div class="w-full flex flex-col items-start">
+            <div class="flex items-center justify-between text-gray-800 w-full">
+                <p class="text-sm">{{ avowal.created_at|date:"M d, Y" }}</p>
+                {{ avowal.get_icon }}
+            </div>
+        </div>
+    </div>
+    {% if avowal.is_active %}
+    <section class="mx-auto w-full lg:w-2/3">
+        <form method="post">
+            {% csrf_token %}
+            <label for="comment">Comment</label>
+            {{ form.body }}
+            <div id='msg'>120 characters left</div>
+            <div id='lastChar' class="mb-4"></div>
+            {{ form.hcaptcha }}
+            {% if error.errors %}
+            <strong>{{ error.errors.hcaptcha|escape }}</strong>
+            {% endif %}
+            <button type="submit"
+                class="w-full bg-black hover:bg-gray-700 px-10 py-4 rounded-lg text-white text-center font-bold text-lg mt-10">Comment</button>
+        </form>
+    </section>
+    {% endif %}
+    <section class="mx-auto w-full lg:w-2/3 my-10">
+        <p>Comments: {{ avowal.comments.count }}</p>
+        {% for comment in avowal.comments.all %}
+        <div class="border rounded-lg px-4 py-2 sm:px-6 sm:py-4 my-4">
+            <p class="text-xs text-gray-400">{{ comment.created_at }} #<span>{{ comment.public_identifier }}</span></p>
+            <p class="text-sm">{{ comment.body }}</p>
+        </div>
+        {% endfor %}
+    </section>
+</main>
+<script>
+    function charCount() {
+        var textEntered = document.getElementById('comment').value;
+        var msg = document.getElementById('msg');
+        var counter = (120 - (textEntered.length));
+        msg.textContent = counter + ' characters left';
+    }
+
+    var el = document.getElementById('comment');
+    el.addEventListener('keyup', charCount, false);
+</script>
+{% endblock body %}

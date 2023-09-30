@@ -1,0 +1,62 @@
+{% extends '_base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+{% block metatag %}
+<meta name="title" content="{{ title }}">
+<meta name="description" content="{{ description }}">
+{% endblock metatag %}
+{% block og %}
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+{% endblock og %}
+{% block ogtwitter %}
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+<meta property="twitter:title" content="{{ title }}">
+<meta property="twitter:description" content="{{ description }}">
+{% endblock ogtwitter %}
+{% block body %}
+<main class="max-w-screen-md mx-auto min-h-screen px-4 md:px-4 pt-6 md:pt-4 leading-relaxed">
+    {% include 'partial_nav.html' %}
+    <p class="my-10">
+        This Privacy Policy describes how your personal information is collected, used, and shared when you visit
+        trivias.co
+    </p>
+    <h3>
+        1. Disclaimer
+    </h3>
+    <ol type="a" class="mb-10 pl-4">
+        <li>
+            trivias.co does not warrant or make any representations
+            concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site
+            or otherwise relating to such materials or on any sites linked to this site.
+        </li>
+    </ol>
+    <h3>
+        2. Links
+    </h3>
+    <p class="mb-10 pl-4">
+        trivias.co has not reviewed all of the sites linked to its Internet web site and is not responsible for the
+        contents of any such linked site. The inclusion of any link does not imply endorsement by trivias of the site.
+        Use of any such linked web site is at the user's own risk.
+    </p>
+    <h3>
+        3. hCaptcha
+    </h3>
+    <ol type="a" class="mb-10 pl-4">
+        <li>
+            We use the hCaptcha anti-bot service (hereinafter "hCaptcha") on our website. This service is provided by Intuition Machines, Inc., a Delaware US Corporation ("IMI"). hCaptcha is used to check whether the data entered on our website (such as on a login page or contact form) has been entered by a human or by an automated program. To do this, hCaptcha analyzes the behavior of the website or mobile app visitor based on various characteristics. This analysis starts automatically as soon as the website or mobile app visitor enters a part of the website or app with hCaptcha enabled. For the analysis, hCaptcha evaluates various information (e.g. IP address, how long the visitor has been on the website or app, or mouse movements made by the user). The data collected during the analysis will be forwarded to IMI. hCaptcha analysis in the "invisible mode" may take place completely in the background. Website or app visitors are not advised that such an analysis is taking place if the user is not shown a challenge. Data processing is based on Art. 6(1)(f) of the GDPR (DSGVO): the website or mobile app operator has a legitimate interest in protecting its site from abusive automated crawling and spam. IMI acts as a "data processor" acting on behalf of its customers as defined under the GDPR, and a "service provider" for the purposes of the California Consumer Privacy Act (CCPA). For more information about hCaptcha and IMI's privacy policy and terms of use, please visit the following links: <a href="https://www.hcaptcha.com/privacy">Privacy Policy</a> and <a href="https://www.hcaptcha.com/terms">Terms of Service</a>.
+        </li>
+    </ol>
+    <h2>
+        Privacy Policy
+    </h2>
+    <p class="pl-4 mb-10">
+        We doesn't track any personal data 🥰. If you have questions <a href="https://forms.gle/Toiae7nHRw1uQqXU7"
+            class="py-4 font-bold" target="_blank">
+            Contact us
+        </a>
+    </p>
+</main>
+{% endblock body %}

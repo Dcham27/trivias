@@ -1,0 +1,142 @@
+{% extends '_base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+{% block metatag %}
+<meta name="title" content="{{ title }}">
+<meta name="description" content="{{ description }}">
+{% endblock metatag %}
+{% block og %}
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+{% endblock og %}
+{% block ogtwitter %}
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+<meta property="twitter:title" content="{{ title }}">
+<meta property="twitter:description" content="{{ description }}">
+{% endblock ogtwitter %}
+{% block body %}
+<div class="max-w-screen-xl mx-auto min-h-screen px-4 md:px-4 pt-6 md:pt-4">
+    {% include 'partial_nav.html' %}
+    <section class="mt-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+            <a href="{% url 'core:topic-filter' tag='academic' %}"
+                class="flex items-center p-4 {% if tag == 'academic' %}bg-blue-600 text-gray-100{% else %}bg-blue-300{% endif %} rounded-lg hover:bg-blue-600 hover:text-gray-100">
+                <p>🎓</p>
+                <div>
+                    <p class=" text-xs font-medium ml-2 ">
+                        Academic
+                    </p>
+                </div>
+            </a>
+            <a href="{% url 'core:topic-filter' tag='job' %}"
+                class="flex items-center p-4 {% if tag == 'job' %}bg-slate-600 text-gray-100{% else %}bg-slate-300{% endif %} rounded-lg hover:bg-slate-600 hover:text-gray-100">
+                <p>💼</p>
+                <div>
+                    <p class=" text-xs font-medium ml-2 ">
+                        Job
+                    </p>
+                </div>
+            </a>
+            <a href="{% url 'core:topic-filter' tag='family' %}"
+                class="flex items-center p-4 {% if tag == 'family' %}bg-green-600 text-gray-100{% else %}bg-green-300{% endif %} rounded-lg hover:bg-green-600 hover:text-gray-100">
+                <p>🤲</p>
+                <div>
+                    <p class=" text-xs font-medium ml-2 ">
+                        Family
+                    </p>
+                </div>
+            </a>
+            <a href="{% url 'core:topic-filter' tag='love' %}"
+                class="flex items-center p-4 {% if tag == 'love' %}bg-pink-600 text-gray-100{% else %}bg-pink-300{% endif %} rounded-lg hover:bg-pink-600 hover:text-gray-100">
+                <p>❤️</p>
+                <div>
+                    <p class=" text-xs font-medium ml-2 ">
+                        Love
+                    </p>
+                </div>
+            </a>
+            <a href="{% url 'core:topic-filter' tag='sex' %}"
+                class="flex items-center p-4 {% if tag == 'sex' %}bg-red-600 text-gray-100{% else %}bg-red-300{% endif %} rounded-lg hover:bg-red-600 hover:text-gray-100">
+                <p>🔥</p>
+                <div>
+                    <p class=" text-xs font-medium ml-2 ">
+                        Sex
+                    </p>
+                </div>
+            </a>
+            <a href="{% url 'core:topic-filter' tag='personal' %}"
+                class="flex items-center p-4 {% if tag == 'personal' %}bg-yellow-600 text-gray-100{% else %}bg-yellow-300{% endif %} rounded-lg hover:bg-yellow-600 hover:text-gray-100">
+                <p>⚱️</p>
+                <div>
+                    <p class=" text-xs font-medium ml-2 ">
+                        Personal
+                    </p>
+                </div>
+            </a>
+            <a href="{% url 'core:topic-filter' tag='politics' %}"
+                class="flex items-center p-4 {% if tag == 'politics' %}bg-orange-600 text-gray-100{% else %}bg-orange-300{% endif %} rounded-lg hover:bg-orange-600 hover:text-gray-100">
+                <p>🌎</p>
+                <div>
+                    <p class=" text-xs font-medium ml-2 ">
+                        Politics
+                    </p>
+                </div>
+            </a>
+        </div>
+    </section>
+    <div class="mx-auto container py-10">
+        <div class="grid sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6 mb-10">
+            {% for avowal in avowals %}
+            <a href="{% url 'core:detail' code=avowal.public_identifier %}"
+                class="w-full h-56 flex flex-col justify-between items-start rounded-lg border-l-4 {{ avowal.get_color_style }} py-5 px-4">
+                <p class="text-gray-800 text-sm">{{ avowal.body }}</p>
+                <div class="w-full flex flex-col items-start">
+                    <div class="flex items-center justify-between text-gray-800 w-full">
+                        <p class="text-sm">{{ avowal.created_at|date:"M d, Y" }}</p>
+                        {{ avowal.get_icon }}
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+            <p>No Avowals yet.</p>
+            {% endfor %}
+        </div>
+        {% if is_paginated %}
+        <div class="flex justify-between">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}"
+                class="border border-grey-500 rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-black hover:text-white">
+                <svg class="h-5 w-5 mr-2 fill-current" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-49 141 512 512"
+                    style="enable-background:new -49 141 512 512;" xml:space="preserve">
+                    <path id="XMLID_10_"
+                        d="M438,372H36.355l72.822-72.822c9.763-9.763,9.763-25.592,0-35.355c-9.763-9.764-25.593-9.762-35.355,0 l-115.5,115.5C-46.366,384.01-49,390.369-49,397s2.634,12.989,7.322,17.678l115.5,115.5c9.763,9.762,25.593,9.763,35.355,0 c9.763-9.763,9.763-25.592,0-35.355L36.355,422H438c13.808,0,25-11.193,25-25S451.808,372,438,372z">
+                    </path>
+                </svg>
+                Previous
+            </a>
+            {% else %}
+            <button disabled>
+            </button>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}"
+                class="border border-grayß-500 bg-gray-700 text-white rounded-sm font-bold py-4 px-6 ml-2 flex items-center hover:bg-black hover:text-white">
+                Next
+                <svg class="h-5 w-5 ml-2 fill-current" clasversion="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-49 141 512 512"
+                    style="enable-background:new -49 141 512 512;" xml:space="preserve">
+                    <path id="XMLID_11_"
+                        d="M-24,422h401.645l-72.822,72.822c-9.763,9.763-9.763,25.592,0,35.355c9.763,9.764,25.593,9.762,35.355,0
+                    l115.5-115.5C460.366,409.989,463,403.63,463,397s-2.634-12.989-7.322-17.678l-115.5-115.5c-9.763-9.762-25.593-9.763-35.355,0
+                    c-9.763,9.763-9.763,25.592,0,35.355l72.822,72.822H-24c-13.808,0-25,11.193-25,25S-37.808,422-24,422z" />
+                </svg>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock body %}

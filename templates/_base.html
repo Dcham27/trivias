@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://res.cloudinary.com/dzupdsc1v/image/upload/v1645406608/favicon_gwi7or.ico"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://res.cloudinary.com/dzupdsc1v/raw/upload/v1645578103/styles_t5mwqk.css"
+    />
+    <title>{% block title %}{% endblock title %}</title>
+    <!-- Primary Meta Tags -->
+    {% block metatag %} {% endblock metatag %}
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    {% block og %} {% endblock og %}
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    {% block ogtwitter %} {% endblock ogtwitter %}
+  </head>
+
+  <body class="bg-neutral-50 leading-relaxed font-poppins">
+    <!-- <p class="border-l-blue-600 bg-blue-300"></p>
+    <p class="border-l-slate-600 bg-slate-300"></p>
+    <p class="border-l-green-600 bg-green-300"></p>
+    <p class="border-l-pink-600 bg-pink-300"></p>
+    <p class="border-l-red-600 bg-red-300"></p>
+    <p class="border-l-yellow-600 bg-yellow-300"></p>
+    <p class="border-l-orange-600 bg-orange-300"></p> -->
+    {% block body %}{% endblock body %}
+    <footer class="text-white bg-neutral-800 text-center">
+      <a
+        href="https://forms.gle/Toiae7nHRw1uQqXU7"
+        class="py-4"
+        target="_blank"
+      >
+        Contact us
+      </a>
+
+      <div class="bg-black text-center text-white p-4">
+        2023
+        <a href="{% url 'core:privacy' %}">Privacy</a>
+      </div>
+    </footer>
+  </body>
+</html>

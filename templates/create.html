@@ -1,0 +1,58 @@
+{% extends '_base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+{% block metatag %}
+<meta name="title" content="{{ title }}">
+<meta name="description" content="{{ description }}">
+{% endblock metatag %}
+{% block og %}
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+{% endblock og %}
+{% block ogtwitter %}
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+<meta property="twitter:title" content="{{ title }}">
+<meta property="twitter:description" content="{{ description }}">
+{% endblock ogtwitter %}
+
+{% block body %}
+<section class="max-w-screen-xl mx-auto min-h-screen px-4 md:px-4 pt-6 md:pt-4">
+  <a href="{% url 'core:home' %}"><img src="https://res.cloudinary.com/dzupdsc1v/image/upload/v1645546365/logo_n22c6g.svg" alt="logo" class="w-60 mx-auto"></a>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="lg:w-2/3 mx-auto flex flex-col space-y-4 py-10">
+      <p>What do you want to express? Feel free</p>
+      <label for="tag">Topic</label>
+      {{ form.type_topic }}
+      <label for="body">Body</label>
+      {{ form.body }}
+      <div id='msg'>240 characters left</div>
+      <div id='lastChar'></div>
+      {{ form.hcaptcha }}
+      {% if form.errors %}
+      {% for field in form %}
+      {% for error in field.errors %}
+      <strong>{{ error|escape }}</strong>
+      {% endfor %}
+      {% endfor %}
+      {% endif %}
+      <button type="submit"
+        class="w-full bg-black hover:bg-gray-700 px-10 py-4 rounded-lg text-white text-center font-bold text-lg mt-10 md:mt-0">Publish</button>
+    </div>
+  </form>
+</section>
+<script>
+  function charCount() {
+    var textEntered = document.getElementById('body').value;
+    var msg = document.getElementById('msg');
+    var counter = (240 - (textEntered.length));
+    msg.textContent = counter + ' characters left';
+  }
+
+  var el = document.getElementById('body');
+  el.addEventListener('keyup', charCount, false);
+</script>
+{% endblock body %}
